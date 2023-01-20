@@ -5,6 +5,6 @@ function App() {
   return (
     <span>Hello, App!</span>
   );
-}
+}/* as */
 
 export default App;
