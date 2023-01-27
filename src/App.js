@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
+import UseProvider from './context/Requisitar';
+import Table from './componets/Table';
 
 function App() {
   return (
-    <span>Hello, App!</span>
+    <UseProvider>
+      <Table />
+    </UseProvider>
   );
-}/* asf */
+}
 
 export default App;
