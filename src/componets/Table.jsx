@@ -6,8 +6,8 @@ function Table() {
   const [valueImput, setValueImput] = useState('');
 
   const { apiValue } = useContext(ItensContext);
-  console.log(apiValue);
-
+  const filtrar = apiValue
+    .filter((e) => e.name.toLowerCase().includes(valueImput.toLowerCase()));
   return (
     <>
       <input
@@ -47,40 +47,41 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {apiValue
-          && apiValue.map((element, index) => (
-            (
+          {
+            filtrar.map((element) => (
+              (
 
-              <tr key={ index }>
-                <td>{element.name}</td>
+                <tr key={ element.name }>
+                  <td>{element.name}</td>
 
-                <td>{element.rotation_period}</td>
+                  <td>{element.rotation_period}</td>
 
-                <td>{element.orbital_period}</td>
+                  <td>{element.orbital_period}</td>
 
-                <td>{element.diameter}</td>
+                  <td>{element.diameter}</td>
 
-                <td>{element.climate}</td>
+                  <td>{element.climate}</td>
 
-                <td>{element.gravity}</td>
+                  <td>{element.gravity}</td>
 
-                <td>{element.terrain}</td>
+                  <td>{element.terrain}</td>
 
-                <td>{element.surface_water}</td>
+                  <td>{element.surface_water}</td>
 
-                <td>{element.population}</td>
+                  <td>{element.population}</td>
 
-                <td>{element.films}</td>
+                  <td>{element.films}</td>
 
-                <td>{element.created}</td>
+                  <td>{element.created}</td>
 
-                <td>{element.edited}</td>
+                  <td>{element.edited}</td>
 
-                <td>{element.url}</td>
-              </tr>
+                  <td>{element.url}</td>
+                </tr>
 
-            )
-          ))}
+              )
+            ))
+          }
         </tbody>
       </table>
     </>
