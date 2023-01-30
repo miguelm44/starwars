@@ -1,8 +1,10 @@
 /*  */
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import ItensContext from '../context/itensContext';
 
 function Table() {
+  const [option, setOption] = useState(true);
+  console.log(option);
   const { retornoApi,
     valueImput,
     setValueImput,
@@ -60,9 +62,12 @@ function Table() {
           return Number(fil[element.column]) < Number(element.number);
         }
         return Number(fil[element.column]) === Number(element.number);
-      });
+      });/*  */
 
       setRetorno(valorFiltrado);
+      if (inptNumber.column === 'population') {
+        return setOption(false);
+      }
     });
   };
 
@@ -81,7 +86,12 @@ function Table() {
         } }
         value={ inptNumber.column }
       >
-        <option value="population">population</option>
+        {
+          option
+            ? <option value="population">population</option>
+            : ''
+        }
+
         <option value="orbital_period">orbital_period</option>
         <option value="diameter">diameter</option>
         <option value="rotation_period">rotation_period</option>
