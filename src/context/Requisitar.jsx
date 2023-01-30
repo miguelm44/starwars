@@ -4,6 +4,13 @@ import ItensContext from './itensContext';
 
 function UseProvider({ children }) {
   const [retornoApi, setRetorno] = useState([]);
+  const [inptNumber, setImputNumber] = useState({ /* state do requisito 3 */
+    column: 'population',
+    comparison: 'maior que',
+    number: '0',
+  });
+  const [valueImput, setValueImput] = useState('');
+  const [valueFiltro, setFiltro] = useState([]);
   useEffect(() => {
     const api = async () => {
       const url = 'https://swapi.dev/api/planets';
@@ -17,10 +24,22 @@ function UseProvider({ children }) {
       }
     };
     api();
-  }, []);
+  }, [valueImput]);
 
   return (
-    <ItensContext.Provider value={ { apiValue: retornoApi } }>
+    <ItensContext.Provider
+      value={ {
+        retornoApi,
+        setRetorno,
+        valueImput,
+        setValueImput,
+        inptNumber,
+        setImputNumber,
+        valueFiltro,
+        setFiltro,
+      } }
+    >
+
       {children}
     </ItensContext.Provider>
   );
