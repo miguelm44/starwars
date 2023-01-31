@@ -11,6 +11,7 @@ function UseProvider({ children }) {
   });
   const [valueImput, setValueImput] = useState('');
   const [valueFiltro, setFiltro] = useState([]);
+  const [remover, setRemover] = useState([]);
   useEffect(() => {
     const api = async () => {
       const url = 'https://swapi.dev/api/planets';
@@ -19,12 +20,15 @@ function UseProvider({ children }) {
         const json = await requerir.json();
         json.results.forEach((e) => delete e.residents);
         setRetorno(json.results);
+        setRemover(json.results);
       } catch (erro) {
         return erro;
       }
     };
     api();
   }, [valueImput]);
+
+  const RemoverFiltro = () => setRetorno(remover);
 
   return (
     <ItensContext.Provider
@@ -37,6 +41,8 @@ function UseProvider({ children }) {
         setImputNumber,
         valueFiltro,
         setFiltro,
+        RemoverFiltro,
+        remover,
       } }
     >
 

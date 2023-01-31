@@ -11,6 +11,7 @@ function Table() {
     inptNumber,
     setImputNumber,
     setRetorno,
+    RemoverFiltro,
   } = useContext(ItensContext);
 
   const filtrar = retornoApi
@@ -124,6 +125,9 @@ function Table() {
       >
         Filtrar
 
+      </button>
+      <button data-testid="button-remove-filters" onClick={ () => RemoverFiltro() }>
+        Remover
       </button>
       <table border="1">
         <thead>
