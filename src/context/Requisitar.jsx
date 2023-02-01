@@ -9,9 +9,12 @@ function UseProvider({ children }) {
     comparison: 'maior que',
     number: '0',
   });
+  const [arrayFilter, setArrayFilter] = useState([]);
   const [valueImput, setValueImput] = useState('');
   const [valueFiltro, setFiltro] = useState([]);
   const [remover, setRemover] = useState([]);
+  /* const [remove, setRemove] = useState(true);
+ */
   useEffect(() => {
     const api = async () => {
       const url = 'https://swapi.dev/api/planets';
@@ -28,8 +31,9 @@ function UseProvider({ children }) {
     api();
   }, [valueImput]);
 
-  const RemoverFiltro = () => setRetorno(remover);
-
+  const RemoverFiltro = () => {
+    setRetorno(remover);
+  };
   return (
     <ItensContext.Provider
       value={ {
@@ -43,6 +47,8 @@ function UseProvider({ children }) {
         setFiltro,
         RemoverFiltro,
         remover,
+        arrayFilter,
+        setArrayFilter,
       } }
     >
 

@@ -1,10 +1,18 @@
 /*  */
+
 import { useContext, useState } from 'react';
 import ItensContext from '../context/itensContext';
 
+const initialSelect = [
+  'population',
+  'orbital_period',
+  'diameter',
+  'rotation_period',
+  'surface_water',
+];
 function Table() {
-  const [option, setOption] = useState(true);
-  console.log(option);
+  const [selects, setSelects] = useState(initialSelect);
+
   const { retornoApi,
     valueImput,
     setValueImput,
@@ -12,51 +20,16 @@ function Table() {
     setImputNumber,
     setRetorno,
     RemoverFiltro,
+    arrayFilter,
+    setArrayFilter,
+    remover,
   } = useContext(ItensContext);
 
-  const filtrar = retornoApi
-    .filter((e) => e.name.toLowerCase().includes(valueImput.toLowerCase()));
-
-  /* setFiltro(...filtrar); */
-  /* const filterList = [
-    {
-      input: "Tattoine", // onde vc digita
-      select1: "population",
-      select2: "maior que",
-      valorNumerico: 100
-    },
-    {
-      input: "Tattoine", // onde vc digita
-      select1: "population",
-      select2: "maior que",
-      valorNumerico: 100
-    }
-  ];
- */
-  /* const arrayPlaneta = [];
-
-  filterList.filter((filter) => {
-    arrayPlaneta.filter((planet) => {
-      if(filter.select2 === "maior que") {
-
-      } else if (filter.select2 === "menor que")
-    })
-  }) */
-  /* const list = [inptNumber];
-  list.map((element) => {
-    if(element.comparison === "maior que") {
-      return filtrar.filter((fil) => fil.column > element)
-    }
-    if(element.comparison === "menor que")
-    if(element.comparison === "igual a")
-    return
-  })
- */
-  const clickButton = () => { /* função requisito 3 */
-    const list = [inptNumber];
-
-    list.forEach((element) => {
-      const valorFiltrado = retornoApi.filter((fil) => {
+  const clickButton = (elemento) => { /* função requisito 3 */
+    setArrayFilter([...arrayFilter, inptNumber]);
+    const arrayToFilter = [...arrayFilter, inptNumber];
+    arrayToFilter.forEach((element) => {
+      const valorFiltrado = elemento.filter((fil) => {
         if (element.comparison === 'maior que') {
           return Number(fil[element.column]) > Number(element.number);
         } if (element.comparison === 'menor que') {
@@ -65,13 +38,34 @@ function Table() {
         return Number(fil[element.column]) === Number(element.number);
       });/*  */
 
-      setRetorno(valorFiltrado);
-      if (inptNumber.column === 'population') {
-        return setOption(false);
-      }
+      return setRetorno(valorFiltrado);
     });
+    const updateSelects = selects.filter((e) => e !== inptNumber.column);
+    setSelects(updateSelects);
+    setImputNumber({ ...inptNumber, column: updateSelects[0] });
   };
 
+  const removerUnidade = (element) => {
+    const removerColun = arrayFilter.filter((retirar) => retirar.column !== element);
+
+    setArrayFilter(removerColun);
+    if (removerColun.length === 0) {
+      setRetorno(remover);
+    } else {
+      removerColun.forEach((elemento) => {
+        const valorFiltrado = remover.filter((fil) => {
+          if (elemento.comparison === 'maior que') {
+            return Number(fil[elemento.column]) > Number(elemento.number);
+          } if (elemento.comparison === 'menor que') {
+            return Number(fil[elemento.column]) < Number(elemento.number);
+          }
+          return Number(fil[elemento.column]) === Number(elemento.number);
+        });
+
+        return setRetorno(valorFiltrado);
+      });
+    }
+  };
   return (
     <>
       <input
@@ -79,6 +73,7 @@ function Table() {
         value={ valueImput }
         data-testid="name-filter"
         onChange={ ({ target }) => setValueImput(target.value) }
+        placeholder="digite o nome de um planeta"
       />
       <select
         data-testid="column-filter"
@@ -88,15 +83,10 @@ function Table() {
         value={ inptNumber.column }
       >
         {
-          option
-            ? <option value="population">population</option>
-            : ''
+          selects.map((e) => (
+            <option key={ e } value={ e }>{e}</option>
+          ))
         }
-
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
       </select>
       <select
         data-testid="comparison-filter"
@@ -121,12 +111,35 @@ function Table() {
       <button
         data-testid="button-filter"
         type="button"
-        onClick={ () => clickButton() }
+        onClick={ () => clickButton(retornoApi) }
       >
         Filtrar
 
       </button>
-      <button data-testid="button-remove-filters" onClick={ () => RemoverFiltro() }>
+      {
+        arrayFilter.map((filters) => (
+          <div key={ filters.column } data-testid="filter">
+            <span>
+              {`${filters.column} ${filters.comparison} ${filters.number} `}
+            </span>
+            <button
+              type="button"
+              name={ filters.column }
+              onClick={ () => removerUnidade(filters.column) }
+            >
+              Delete
+            </button>
+          </div>
+        ))
+      }
+      <button
+        data-testid="button-remove-filters"
+        onClick={ () => {
+          RemoverFiltro();
+          setArrayFilter([]);
+          setSelects([...initialSelect]);
+        } }
+      >
         Remover
       </button>
       <table border="1">
@@ -161,39 +174,41 @@ function Table() {
         </thead>
         <tbody>
           {
-            filtrar.map((element) => (
-              (
+            retornoApi.filter((e) => e.name.toLowerCase()
+              .includes(valueImput.toLowerCase()))
+              .map((element) => (
+                (
 
-                <tr key={ element.name }>
-                  <td>{element.name}</td>
+                  <tr key={ element.name }>
+                    <td>{element.name}</td>
 
-                  <td>{element.rotation_period}</td>
+                    <td>{element.rotation_period}</td>
 
-                  <td>{element.orbital_period}</td>
+                    <td>{element.orbital_period}</td>
 
-                  <td>{element.diameter}</td>
+                    <td>{element.diameter}</td>
 
-                  <td>{element.climate}</td>
+                    <td>{element.climate}</td>
 
-                  <td>{element.gravity}</td>
+                    <td>{element.gravity}</td>
 
-                  <td>{element.terrain}</td>
+                    <td>{element.terrain}</td>
 
-                  <td>{element.surface_water}</td>
+                    <td>{element.surface_water}</td>
 
-                  <td>{element.population}</td>
+                    <td>{element.population}</td>
 
-                  <td>{element.films}</td>
+                    <td>{element.films}</td>
 
-                  <td>{element.created}</td>
+                    <td>{element.created}</td>
 
-                  <td>{element.edited}</td>
+                    <td>{element.edited}</td>
 
-                  <td>{element.url}</td>
-                </tr>
+                    <td>{element.url}</td>
+                  </tr>
 
-              )
-            ))
+                )
+              ))
           }
         </tbody>
       </table>

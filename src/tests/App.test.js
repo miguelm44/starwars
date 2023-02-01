@@ -8,5 +8,6 @@ describe('testes', () => {
     const nameFilter = screen.getByTestId('name-filter');
     const coluna = screen.getByTestId('column-filter')
     expect(nameFilter).toBeInTheDocument()
+    expect(coluna).toBeInTheDocument()
   }) 
 })
