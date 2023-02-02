@@ -2,6 +2,7 @@
 
 import { useContext, useState } from 'react';
 import ItensContext from '../context/itensContext';
+import Ordernar from './Ordenar';
 
 const initialSelect = [
   'population',
@@ -24,7 +25,7 @@ function Table() {
     setArrayFilter,
     remover,
   } = useContext(ItensContext);
-
+  console.log(retornoApi);
   const clickButton = (elemento) => { /* função requisito 3 */
     setArrayFilter([...arrayFilter, inptNumber]);
     const arrayToFilter = [...arrayFilter, inptNumber];
@@ -142,6 +143,7 @@ function Table() {
       >
         Remover
       </button>
+      <Ordernar />
       <table border="1">
         <thead>
           <tr>
@@ -180,7 +182,7 @@ function Table() {
                 (
 
                   <tr key={ element.name }>
-                    <td>{element.name}</td>
+                    <td data-testid="planet-name">{element.name}</td>
 
                     <td>{element.rotation_period}</td>
 
