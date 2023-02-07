@@ -1,5 +1,3 @@
-/*  */
-
 import { useContext, useState } from 'react';
 import ItensContext from '../context/itensContext';
 import Ordernar from './Ordenar';
@@ -128,7 +126,7 @@ function Table() {
               name={ filters.column }
               onClick={ () => removerUnidade(filters.column) }
             >
-              Delete
+              x
             </button>
           </div>
         ))
@@ -217,4 +215,5 @@ function Table() {
     </>
   );
 }
+
 export default Table;

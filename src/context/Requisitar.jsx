@@ -22,6 +22,7 @@ function UseProvider({ children }) {
         const requerir = await fetch(url);
         const json = await requerir.json();
         json.results.forEach((e) => delete e.residents);
+        console.log(json.results, '###');
         setRetorno(json.results);
         setRemover(json.results);
       } catch (erro) {
