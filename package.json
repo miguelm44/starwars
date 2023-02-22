@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "16 || 18"
+    "node": "16 || 18",
+    "homepage": "https://miguelm44.github.io/starwars"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -28,7 +29,8 @@
     "test-coverage": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "lint:styles": "npx stylelint '**/*.css'",
-    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js,.jsx"
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js,.jsx",
+    "publicar": "npm run build && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -50,6 +52,7 @@
     "cypress": "^10.11.0",
     "cypress-multi-reporters": "^1.6.2",
     "eslint-config-trybe-frontend": "1.5.0",
+    "gh-pages": "^5.0.0",
     "mocha": "^10.2.0",
     "mochawesome": "^7.1.3",
     "mochawesome-merge": "^4.2.2",
