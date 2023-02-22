@@ -20,7 +20,7 @@ function UseProvider({ children }) {
       const url = 'https://swapi.dev/api/planets';
       try {
         const requerir = await fetch(url);
-        const json = await requerir.json();
+        const json = await requerir.json();/* a */
         json.results.forEach((e) => delete e.residents);
         console.log(json.results, '###');
         setRetorno(json.results);
