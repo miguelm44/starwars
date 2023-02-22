@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ItensContext from './itensContext';
 
 function UseProvider({ children }) {
-  const [retornoApi, setRetorno] = useState([]);
+  const [retornoApi, setRetorno] = useState([]);/* dev-miguel-ambrosio */
   const [inptNumber, setImputNumber] = useState({ /* state do requisito 3 */
     column: 'population',
     comparison: 'maior que',
