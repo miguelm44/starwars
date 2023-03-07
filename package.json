@@ -2,9 +2,9 @@
   "name": "sd-0x-project-react-context-hooks-starwars-datatable-filters",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://miguelm44.github.io/starwars",
   "engines": {
-    "node": "16 || 18",
-    "homepage": "https://miguelm44.github.io/starwars"
+    "node": "16 || 18"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
