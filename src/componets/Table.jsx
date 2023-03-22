@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { BiTrash } from 'react-icons/bi';
 import ItensContext from '../context/itensContext';
 import Ordernar from './Ordenar';
 
@@ -11,7 +12,6 @@ const initialSelect = [
 ];
 function Table() {
   const [selects, setSelects] = useState(initialSelect);
-
   const { retornoApi,
     valueImput,
     setValueImput,
@@ -67,82 +67,85 @@ function Table() {
   };
   return (
     <>
-      <input
-        type="text"
-        value={ valueImput }
-        data-testid="name-filter"
-        onChange={ ({ target }) => setValueImput(target.value) }
-        placeholder="digite o nome de um planeta"
-      />
-      <select
-        data-testid="column-filter"
-        onChange={ ({ target }) => {
-          setImputNumber({ ...inptNumber, column: target.value });
-        } }
-        value={ inptNumber.column }
-      >
+      <form>
+        <input
+          type="text"
+          value={ valueImput }
+          data-testid="name-filter"
+          onChange={ ({ target }) => setValueImput(target.value) }
+          placeholder="digite o nome de um planeta"
+        />
+        <select
+          data-testid="column-filter"
+          onChange={ ({ target }) => {
+            setImputNumber({ ...inptNumber, column: target.value });
+          } }
+          value={ inptNumber.column }
+        >
+          {
+            selects.map((e) => (
+              <option key={ e } value={ e }>{e}</option>
+            ))
+          }
+        </select>
+        <select
+          data-testid="comparison-filter"
+          value={ inptNumber.comparison }
+          onChange={ ({ target }) => {
+            setImputNumber({
+              ...inptNumber, comparison: target.value });
+          } }
+        >
+          <option value="maior que">maior que</option>
+          <option value="menor que">menor que</option>
+          <option value="igual a">igual a</option>
+        </select>
+        <input
+          type="number"
+          data-testid="value-filter"
+          value={ inptNumber.number }
+          onChange={ ({ target }) => {
+            setImputNumber({ ...inptNumber, number: target.value });
+          } }
+        />
+        <button
+          data-testid="button-filter"
+          type="button"
+          onClick={ () => clickButton(retornoApi) }
+        >
+          Filtrar
+        </button>
         {
-          selects.map((e) => (
-            <option key={ e } value={ e }>{e}</option>
+          arrayFilter.map((filters) => (
+            <div key={ filters.column } data-testid="filter">
+              <span>
+                {`${filters.column} ${filters.comparison} ${filters.number} `}
+              </span>
+              <button
+                type="button"
+                name={ filters.column }
+                onClick={ () => removerUnidade(filters.column) }
+                className="lixeira"
+              >
+                <BiTrash />
+
+              </button>
+            </div>
           ))
         }
-      </select>
-      <select
-        data-testid="comparison-filter"
-        value={ inptNumber.comparison }
-        onChange={ ({ target }) => {
-          setImputNumber({
-            ...inptNumber, comparison: target.value });
-        } }
-      >
-        <option value="maior que">maior que</option>
-        <option value="menor que">menor que</option>
-        <option value="igual a">igual a</option>
-      </select>
-      <input
-        type="number"
-        data-testid="value-filter"
-        value={ inptNumber.number }
-        onChange={ ({ target }) => {
-          setImputNumber({ ...inptNumber, number: target.value });
-        } }
-      />
-      <button
-        data-testid="button-filter"
-        type="button"
-        onClick={ () => clickButton(retornoApi) }
-      >
-        Filtrar
-
-      </button>
-      {
-        arrayFilter.map((filters) => (
-          <div key={ filters.column } data-testid="filter">
-            <span>
-              {`${filters.column} ${filters.comparison} ${filters.number} `}
-            </span>
-            <button
-              type="button"
-              name={ filters.column }
-              onClick={ () => removerUnidade(filters.column) }
-            >
-              x
-            </button>
-          </div>
-        ))
-      }
-      <button
-        data-testid="button-remove-filters"
-        onClick={ () => {
-          RemoverFiltro();
-          setArrayFilter([]);
-          setSelects([...initialSelect]);
-        } }
-      >
-        Remover
-      </button>
-      <Ordernar />
-      <table border="1">
+        <button
+          data-testid="button-remove-filters"
+          onClick={ () => {
+            RemoverFiltro();
+            setArrayFilter([]);
+            setSelects([...initialSelect]);
+          } }
+        >
+          Remover
+        </button>
+        <Ordernar />
+      </form>
+      <table className="table">
         <thead>
           <tr>
             <th>name</th>
