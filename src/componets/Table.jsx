@@ -68,6 +68,7 @@ function Table() {
   return (
     <>
       <form>
+
         <input
           type="text"
           value={ valueImput }
@@ -144,6 +145,7 @@ function Table() {
           Remover
         </button>
         <Ordernar />
+
       </form>
       <table className="table">
         <thead>
