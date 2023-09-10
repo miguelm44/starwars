@@ -37,7 +37,7 @@ function Ordernar() {
     }
   };
   return (
-    <div>
+    <>
 
       <select
         id="select"
@@ -90,7 +90,7 @@ function Ordernar() {
         Ordernar
 
       </button>
-    </div>
+    </>
   );
 }
 export default Ordernar;

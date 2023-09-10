@@ -1,13 +1,24 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# Project Nashville
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+Este projeto é uma aplicação web feita com HTML, CSS e JavaScript que utiliza uma API para coletar dados sobre planetas e exibe esses dados em uma tabela. A tabela permite que o usuário filtre e ordene os planetas de acordo com suas preferências.
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+## Descrição
+
+O arquivo `ordernar.jsx` contém toda a lógica do projeto, incluindo a criação da tabela que recebe os dados do contexto `ItensContext` e também a resposta da API. Esta aplicação permite que o usuário:
+
+- Liste os planetas em uma tabela.
+- Aplique filtros personalizados para visualizar apenas os planetas desejados.
+- Ordene os planetas de acordo com critérios específicos.
+
+## Uso
+
+Para executar este projeto, você pode seguir os seguintes passos:
+
+1. Clone o repositório para o seu ambiente local.
+2. Abra o arquivo `index.html` em um navegador da web.
+3. Acesse a aplicação e explore a tabela de planetas.
+4. Use os filtros e opções de ordenação para personalizar sua visualização.
+
+## Vídeo do Projeto
+
+Você pode assistir a uma demonstração completa do projeto no seguinte vídeo: [Vídeo do Projeto](https://youtu.be/e_ftkNQ_RGo?si=UasMa3MdoYZp4_SO).
